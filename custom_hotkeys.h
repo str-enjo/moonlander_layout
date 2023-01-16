@@ -54,39 +54,49 @@ bool process_my_hotkeys(uint16_t keycode, keyrecord_t *record) {
       break;
     case MY_SCRN:
       if (record->event.pressed) {
-        switch (lang_current_change) {
-          case LANG_CHANGE_CAPS: {
-            register_code(KC_LCTL);
-            register_code(KC_LSFT);
-            register_code(KC_PSCR);
-            unregister_code(KC_PSCR);
-            unregister_code(KC_LSFT);
-            unregister_code(KC_LCTL);
-          } break;
-          case LANG_CHANGE_ALT_SHIFT: {
-            // GD этого кейса тут не было
-          } break;
-          case LANG_CHANGE_SHIFT_ALT: {
-            // GD этого кейса тут не было
-          } break;
-          case LANG_CHANGE_SHIFT_CTRL: {
-            // GD этого кейса тут не было
-          } break;
-          case LANG_CHANGE_CTRL_SHIFT: {
             register_code(KC_LGUI);
               register_code(KC_LSFT);
               register_code(KC_S);
             unregister_code(KC_S);
               unregister_code(KC_LSFT);
               unregister_code(KC_LGUI);
-          } break;
-          case LANG_CHANGE_WIN_SPACE: {
-            // No screenshot, maybe it android
-          } break;
-        } 
       }
       return false;
       break;
+      // if (record->event.pressed) {
+      //   switch (lang_current_change) {
+      //     case LANG_CHANGE_CAPS: {
+      //       register_code(KC_LCTL);
+      //       register_code(KC_LSFT);
+      //       register_code(KC_PSCR);
+      //       unregister_code(KC_PSCR);
+      //       unregister_code(KC_LSFT);
+      //       unregister_code(KC_LCTL);
+      //     } break;
+      //     case LANG_CHANGE_ALT_SHIFT: {
+      //       // GD этого кейса тут не было
+      //     } break;
+      //     case LANG_CHANGE_SHIFT_ALT: {
+      //       // GD этого кейса тут не было
+      //     } break;
+      //     case LANG_CHANGE_SHIFT_CTRL: {
+      //       // GD этого кейса тут не было
+      //     } break;
+      //     case LANG_CHANGE_CTRL_SHIFT: {
+      //       register_code(KC_LGUI);
+      //         register_code(KC_LSFT);
+      //         register_code(KC_S);
+      //       unregister_code(KC_S);
+      //         unregister_code(KC_LSFT);
+      //         unregister_code(KC_LGUI);
+      //     } break;
+      //     case LANG_CHANGE_WIN_SPACE: {
+      //       // No screenshot, maybe it android
+      //     } break;
+      //   } 
+      // }
+      // return false;
+      // break;
     case CT_A_C:
       if (record->event.pressed) {
         shift_activate(0);
