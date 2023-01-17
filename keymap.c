@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include <quantum/pointing_device.h>
+// #include "quantum.h"
 #include "version.h"
 
 #include "arbitrary_keycode/include.h"
@@ -23,6 +24,7 @@ enum custom_keycodes {
   #undef CUSTOM_SAFE_RANGE
   #define CUSTOM_SAFE_RANGE NEW_NEW_SAFE_RANGE
 };
+
 
 #define MY_layout( \
     k00, k01, k02, k03, k04, k05, k06, \
@@ -141,7 +143,7 @@ LAYOUT_moonlander( \
 #define CMB_LAN CMB_008
 #define CMB_DOT CMB_009
 #define CMB_SPC CMB_010
-#define CMB_ALT CMB_011
+// #define CMB_ALT CMB_011
 
 // Shifted index keys
 #define CMB_CAC CMB_012
@@ -213,26 +215,26 @@ enum Layers {
   L_YELW,
 
   L_GAME,
-  L_NUCL,
+  // L_NUCL,
 };
 
-#define TG_RED TG(L_RED)
+#define TG_RED  TG(L_RED)
 #define TG_GREN TG(L_GREN)
 #define TG_VIOL TG(L_VIOL)
 #define TG_GRAY TG(L_GRAY)
 // #define TG_CYAN TG(L_CYAN)
 #define TG_YELW TG(L_YELW)
 #define TG_GAME TG(L_GAME)
-#define TG_NUCL TG(L_NUCL)
+// #define TG_NUCL TG(L_NUCL)
 
-#define MO_RED MO(L_RED)
+#define MO_RED  MO(L_RED)
 #define MO_GREN MO(L_GREN)
 #define MO_VIOL MO(L_VIOL)
 #define MO_GRAY MO(L_GRAY)
 // #define MO_CYAN MO(L_CYAN)
 #define MO_YELW MO(L_YELW)
 #define MO_GAME MO(L_GAME)
-#define MO_NUCL MO(L_NUCL)
+// #define MO_NUCL MO(L_NUCL)
 
 #define TT_RED  (TT_000 + L_RED)
 #define TT_GREN (TT_000 + L_GREN)
@@ -241,7 +243,7 @@ enum Layers {
 // #define TT_CYAN (TT_000 + L_CYAN)
 #define TT_YELW (TT_000 + L_YELW)
 #define TT_GAME (TT_000 + L_GAME)
-#define TT_NUCL (TT_000 + L_NUCL)
+// #define TT_NUCL (TT_000 + L_NUCL)
 
 // Этот макрос нужен, чтобы задавать одинаковые слои (в том числе и шифтовый слой) для английского и русского языка. В итоге их отличия будут только в буквах.
 #define LANG_TWO_LAYERS(\
@@ -272,18 +274,18 @@ enum Layers {
     KC_ESC,  CMB_PLS, CMB_SCL, CMB_GRV, CMB_EXL, CMB_ASR, EN_AT, \
     AG_UNDS, LU1,     LU2,     LU3,     LU4,     LU5,     CMB_CTC, \
     KC_TAB,  LH1,     LH2,     LH3,     LH4,     LH5,     CMB_CTV, \
-    ALT_EN,  LD1,     LD2,     LD3,     LD4,     LD5, \
-    _______, CT_Z,    _______, CMB_LYG, CMB_LYV, \
+    KC_DEL,  LD1,     LD2,     LD3,     LD4,     LD5, \
+    _______, CT_Z,    KC_HYPR, TG_VIOL, TG_GREN, \
     KC_BSPC, /* LEFT RED THUMB KEY */ \
     SFT_N,   CTRL_EN, KC_ENT, /* LEFT THUMB KEYS */ \
     \
     /* RIGHT HALF */ \
-    EN_CIRC, CMB_EQL, CMB_CLN, CMB_CMM, CMB_QUE, CMB_SLS, TG_GRAY, \
+    EN_CIRC, CMB_EQL, CMB_CLN, CMB_CMM, CMB_QUE, CMB_SLS, _______, \
     CT_S,    RU1,     RU2,     RU3,     RU4,     RU5,     AG_MINS, \
     _______, RH1,     RH2,     RH3,     RH4,     RH5,     SFT_N_O, \
              RD1,     RD2,     RD3,     RD4,     RD5,     AG_3DOT, \
-                      TT_RED,  TT_GREN, _______, WIN_EN,  _______, \
-                      CMB_ALT, /* RIGHT RED THUMB KEY */ \
+                      TG_RED,  TT_GREN, _______, _______, TG_GRAY, \
+                      CMB_BSP, /* RIGHT RED THUMB KEY */ \
                       CMB_LAN, CMB_DOT, CMB_SPC /* RIGHT THUMB KEYS */ \
   ), \
   \
@@ -300,8 +302,8 @@ enum Layers {
     \
     /* RIGHT HALF */ \
     _______, _______, AG2COLN, AG_COMM, _______, AG2SLSH, _______, \
-    CS_S,    SRU1,    SRU2,    SRU3,    SRU4,    SRU5,    _______, \
-    SH_TAB,  SRH1,    SRH2,    SRH3,    SRH4,    SRH5,    SRH6, \
+    _______, SRU1,    SRU2,    SRU3,    SRU4,    SRU5,    _______, \
+    _______, SRH1,    SRH2,    SRH3,    SRH4,    SRH5,    SRH6, \
              SRD1,    SRD2,    SRD3,    SRD4,    SRD5,    SRD6, \
                       _______, _______, _______, _______, _______, \
                       _______, /* RIGHT RED THUMB KEY */ \
@@ -364,20 +366,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------------------------------------------------------------------------
   [L_RED] = MY_layout(
     // LEFT HALF
-    TG_RED,  KC_F7,   KC_F5,   KC_F3,   KC_F1,   KC_F9,   KC_F11,
+    _______, _______, _______, _______, _______, _______, _______,
     _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
-    _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_DEL,  _______,
+    _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
     _______, AL_LEFT, AL_DOWN, AL_UP,   AL_RGHT, _______,
     _______, _______, _______, _______, _______,
     _______, // LEFT RED THUMB KEY
     _______, _______, _______, // LEFT THUMB KEYS
 
     // RIGHT HALF
-    KC_F12,  KC_F10,  KC_F2,   KC_F4,   KC_F6,   KC_F8,   _______,
+    _______, _______, _______, _______, _______, _______,   TG_RED,
     _______, _______, CMB_LB2, CMB_RB2, EN_ARR2, EN_ARR1, _______,
     _______, _______, CMB_LB1, CMB_RB1, CMB_LB4, CMB_RB4, _______,
              _______, CMB_LB3, CMB_RB3, EN_LTEQ, EN_GTEQ, EN_CLTG,
-                      _______, _______, _______, _______, _______,
+                      TG_RED,  _______, _______, _______, _______,
                       _______, // RIGHT RED THUMB KEY
                       _______, _______, _______// RIGHT THUMB KEYS
     ),
@@ -385,16 +387,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------------------------------------------------------------------------
   [L_GREN] = MY_layout(
     // LEFT HALF
-    TG_GREN, WN_7,    WN_5,    WN_3,    WN_1,     WN_9,     _______,
-    KC_BR_U, _______, KC_VOLD, KC_VOLU, KC_MUTE,  _______,  _______,
-    KC_BR_D, KC_CWL,  _______, _______, KC_CWR,   _______,  _______,
-    _______, WN_LEFT, WN_DOWN, WN_UP,   WN_RGHT,  _______,
-    _______, _______, _______, _______, _______,  
+    _______, WN_7,    WN_5,    WN_3,    WN_1,     WN_9,     _______,
+    KC_BR_D, KC_BR_U, KC_VOLD, KC_VOLU, KC_MUTE,  _______,  _______,
+    _______, KC_CWL,  _______, _______, KC_CWR,   _______,  _______,
+    _______, _______, _______, _______, _______,  _______,
+    RESET,   _______, _______, _______, TG_GREN,  
     _______, // LEFT RED THUMB KEY
     _______, _______, _______, // LEFT THUMB KEYS
 
     // RIGHT HALF
-    _______, WN_0,    WN_2,    WN_4,    WN_6,    WN_8,    RESET,
+    _______, WN_0,    WN_2,    WN_4,    WN_6,    WN_8,    TG_GREN,
     _______, _______, KC_WH_L, KC_WH_U, KC_WH_D, KC_WH_R, KC_ACL2,
     _______, _______, KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_ACL1,
              _______, KC_MNXT, KC_MPLY, _______, KC_MPRV, KC_ACL0,
@@ -406,20 +408,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------------------------------------------------------------------------
   [L_VIOL] = MY_layout(
     // LEFT HALF
-    TG_VIOL, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_CWL,  _______, _______, KC_CWR,  _______, _______,
-    _______, _______, _______, _______, _______,    _______,
-    _______, _______, _______, _______, _______,
+    _______, EN_ARR1, EN_ARR2, CMB_LB2, CMB_RB2, _______, _______,
+    _______, CMB_LB4, CMB_RB4, CMB_LB1, CMB_RB1, _______, _______,
+    EN_CLTG, EN_LTEQ, EN_GTEQ, CMB_LB3, CMB_RB3, _______,
+    _______, _______, _______, TG_VIOL, _______,
     _______, // LEFT RED THUMB KEY
     _______, _______, _______, // LEFT THUMB KEYS
 
     // RIGHT HALF
-    _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, AG_4,    AG_5,    AG_6,    _______, _______,
-    _______, _______, AG_0,    AG_1,    AG_2,    AG_3,    _______,
-             _______, AG_9,    AG_8,    AG_7,    _______, _______,
-                      WIN_EN,  _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, TG_VIOL,
+    _______, _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,  _______,
+    _______, _______, KC_F10,  KC_F1,   KC_F2,   KC_F3,   _______,
+             _______, KC_F9,   KC_F8,   KC_F7,   KC_F12,  _______,
+                      _______,  _______, _______, _______, _______,
                       _______, // RIGHT RED THUMB KEY
                       _______, _______, _______ // RIGHT THUMB KEYS
   ),
@@ -427,7 +429,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //---------------------------------------------------------------------------
   [L_GRAY] = MY_layout(
     // LEFT HALF
-    TG_GRAY, _______, _______, _______, _______, _______,  _______,
+    _______, _______, _______, _______, _______, _______,  _______,
     _______, _______, _______, _______, _______, _______,  _______,
     _______, _______, _______, _______, _______, _______,  _______,
     _______, _______, _______, _______, _______, _______,
@@ -436,11 +438,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, // LEFT THUMB KEYS
 
     // RIGHT HALF
-    _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, TG_GRAY,
     _______, _______, _______, _______, _______, _______, _______,
     _______, _______, TG_GAME, _______, _______, _______, _______,
              _______, _______, _______, _______, _______, _______,
-                      _______, _______, _______, TG_YELW, TG_NUCL,
+                      _______, _______, _______, _______, TG_YELW,
                       _______, // RIGHT RED THUMB KEY
                       _______, _______, _______ // RIGHT THUMB KEYS
   ),
@@ -510,25 +512,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
   //---------------------------------------------------------------------------
-  [L_NUCL] = MY_layout(
-    // LEFT HALF
-    TG_NUCL, KC_SLCK, KC_CAPS, KC_INS,  KC_PAUS, KC_PSCR, KC_APP,
-    _______, _______, _______, _______, _______, _______, _______,
-    _______, MU_LAN1, MU_LAN2, MU_LAN3, MU_LAN4, _______, _______,
-    KC_LSFT, _______, _______, _______, _______, _______,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_RALT, KC_RGUI,
-    _______, // LEFT RED THUMB KEY
-    KC_RCTL, KC_RSFT, _______, // LEFT THUMB KEYS
+//   [L_NUCL] = MY_layout(
+//     // LEFT HALF
+//     TG_NUCL, KC_SLCK, KC_CAPS, KC_INS,  KC_PAUS, KC_PSCR, KC_APP,
+//     _______, _______, _______, _______, _______, _______, _______,
+//     _______, MU_LAN1, MU_LAN2, MU_LAN3, MU_LAN4, _______, _______,
+//     KC_LSFT, _______, _______, _______, _______, _______,
+//     KC_LCTL, KC_LGUI, KC_LALT, KC_RALT, KC_RGUI,
+//     _______, // LEFT RED THUMB KEY
+//     KC_RCTL, KC_RSFT, _______, // LEFT THUMB KEYS
 
-    // RIGHT HALF
-    _______, _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, RESET,
-    _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
-    _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PENT, _______,
-             _______, KC_P1,   KC_P2,   KC_P3,   KC_PEQL, _______,
-                      KC_P0,   KC_PDOT, KC_PCMM, _______, _______,
-                      _______, // RIGHT RED THUMB KEY
-                      _______, _______, _______ // RIGHT THUMB KEYS
-  ),
+//     // RIGHT HALF
+//     _______, _______, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, RESET,
+//     _______, _______, KC_P7,   KC_P8,   KC_P9,   KC_PPLS, _______,
+//     _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PENT, _______,
+//              _______, KC_P1,   KC_P2,   KC_P3,   KC_PEQL, _______,
+//                       KC_P0,   KC_PDOT, KC_PCMM, _______, _______,
+//                       _______, // RIGHT RED THUMB KEY
+//                       _______, _______, _______ // RIGHT THUMB KEYS
+//   ),
 };
 
 const ComboWithKeycode combos[] PROGMEM = {
@@ -537,22 +539,7 @@ const ComboWithKeycode combos[] PROGMEM = {
   CHORD(CT_V,    /* <- */ CMB_CTV),
   CHORD(CT_X,    /* <- */ CMB_CTC, CMB_CTV),
 
-  // Left Thumb
-  // IMMEDIATE_CHORD(SFT_N, SFT_N,     /* <-! */ CMB_SFT),
-  // CHORD(KC_BSPC, /* <- */ CMB_BSP),
-  // CHORD(KC_ENT,  /* <- */ CMB_ENT),
-  // IMMEDIATE_CHORD(CTRL_EN, CTRL_EN, /* <-! */ CMB_CTL),
-  // CHORD(CT_A,    /* <- */ CMB_SFT, CMB_CTL),
-  // IMMEDIATE_CHORD(TT_GRAY, TT_UNDO, /* <-! */ CMB_SFT, CMB_BSP),
-  // Эта комбинация вызывает проблемы. А что если задать ей что-то?
-  // CHORD(CT_DEL,  /* <- */ CMB_SFT, CMB_BSP),
-  // CHORD(KC_DEL,  /* <- */ CMB_BSP, CMB_CTL),
-  // CHORD(CT_BSPC, /* <- */ CMB_BSP, CMB_ENT),
 
-  // GD Проблема возникает когда нажимается Ctrl Enter. Возможно, если явно указать это комбо, то проблема исчезнет
-  // CHORD(CT_ENT,  /* <- */ CMB_CTL, CMB_ENT),
-  // CHORD(CTSH_EN, /* <- */ CMB_SFT, CMB_BSP, CMB_CTL),
-  // CHORD(MU_SCR,  /* <- */ CMB_BSP, CMB_ENT, CMB_CTL),
 
   // Left Left Thumb
   IMMEDIATE_CHORD(TT_VIOL, TT_UNDO, /* <-! */ CMB_LYV),
@@ -563,13 +550,13 @@ const ComboWithKeycode combos[] PROGMEM = {
   CHORD(MU_LANG, /* <- */ CMB_LAN),
   CHORD(AG_DOT,  /* <- */ CMB_DOT),
   CHORD(KC_SPC,  /* <- */ CMB_SPC),
-  CHORD(ALT_EN,  /* <- */ CMB_ALT),
+  CHORD(KC_BSPC, /* <- */ CMB_BSP),
   CHORD(AG_SDOT, /* <- */ CMB_DOT, CMB_SPC),
   CHORD(LA_SYNC, /* <- */ CMB_LAN, CMB_DOT),
-  CHORD(AL_SPC,  /* <- */ CMB_SPC, CMB_ALT),
-  CHORD(KC_MEH,  /* <- */ CMB_DOT, CMB_ALT),
-  CHORD(KC_HYPR, /* <- */ CMB_SPC, CMB_DOT, CMB_ALT),
-  // CHORD(______,  /* <- */ CMB_LAN, CMB_DOT, CMB_ALT),
+  CHORD(KC_DEL,  /* <- */ CMB_BSP, CMB_DOT),
+  CHORD(KC_ENT,  /* <- */ CMB_SPC, CMB_BSP),
+  CHORD(KC_ESC,  /* <- */ CMB_SPC, CMB_DOT, CMB_BSP),
+  CHORD(TG_GAME, /* <- */ CMB_LAN, CMB_DOT, CMB_BSP),
 
   // -------------------------------------------------------------------------
   // Shifted index keys
@@ -663,11 +650,11 @@ const uint16_t tt_keys[][3] = {
   { TT_RED,  MO_RED,  TG_RED },
   { TT_GREN, MO_GREN, TG_GREN },
   { TT_VIOL, MO_VIOL, TG_VIOL },
-  // { TT_GRAY, MO_GRAY, TG_GRAY },
+  { TT_GRAY, MO_GRAY, TG_GRAY },
   // { TT_CYAN, MO_CYAN, TG_CYAN },
   { TT_YELW, MO_YELW, TG_YELW },
   { TT_GAME, MO_GAME, TG_GAME },
-  { TT_NUCL, MO_NUCL, TG_NUCL },
+  // { TT_NUCL, MO_NUCL, TG_NUCL },
 };
 const uint8_t tt_size = sizeof(tt_keys)/(sizeof(uint16_t) * 3);
 
@@ -759,16 +746,16 @@ const uint8_t PROGMEM layermap[][3] = {
   [L_RU] = { 164, 255, 255 },
   [L_RU_S] = { 164, 255, 192 },
 
-  [L_RED] = { 0, 255, 210 },
+  [L_RED] = { 8, 255, 255 },
   [L_GREN] = { 76, 255, 255 },
   [L_VIOL] = { 188, 255, 255 },
-  // [L_GRAY] = { 0, 0, 128 },
+  [L_GRAY] = { 0, 0, 128 },
   // [L_CYAN] = { 128, 255, 255 },
 
   [L_YELW] = { 35, 255, 255 },
   [L_GAME] = { 228, 255, 255 },
 
-  [L_NUCL] = { 8, 255, 255 },
+  // [L_NUCL] = { 0, 255, 210 },
 };
 const uint8_t layermap_size = sizeof(layermap)/(sizeof(uint8_t) * 3);
 
@@ -881,3 +868,159 @@ void rgb_matrix_indicators_user(void) {
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
+
+// GD typedance
+
+// enum tap_dance_codes {
+//   DANCE_0,
+//   DANCE_1,
+//   DANCE_2,
+// };
+
+// typedef struct {
+//     bool is_press_action;
+//     uint8_t step;
+// } tap;
+
+// enum {
+//     SINGLE_TAP = 1,
+//     SINGLE_HOLD,
+//     DOUBLE_TAP,
+//     DOUBLE_HOLD,
+//     DOUBLE_SINGLE_TAP,
+//     MORE_TAPS
+// };
+
+// static tap dance_state[7];
+
+// uint8_t dance_step(qk_tap_dance_state_t *state) {
+//     if (state->count == 1) {
+//         if (state->interrupted || !state->pressed) return SINGLE_TAP;
+//         else return SINGLE_HOLD;
+//     } else if (state->count == 2) {
+//         if (state->interrupted) return DOUBLE_SINGLE_TAP;
+//         else if (state->pressed) return DOUBLE_HOLD;
+//         else return DOUBLE_TAP;
+//     }
+//     return MORE_TAPS;
+// }
+
+// void on_dance_0(qk_tap_dance_state_t *state, void *user_data);
+// void dance_0_finished(qk_tap_dance_state_t *state, void *user_data);
+// void dance_0_reset(qk_tap_dance_state_t *state, void *user_data);
+
+// void on_dance_0(qk_tap_dance_state_t *state, void *user_data) {
+//     if(state->count == 3) {
+//         register_code(MO_RED); unregister_code(MO_RED);
+//         register_code(MO_RED); unregister_code(MO_RED);
+//         register_code(MO_RED); unregister_code(MO_RED);
+//     }
+//     if(state->count > 3) {
+//         register_code(MO_RED); unregister_code(MO_RED);
+//     }
+// }
+
+// void dance_0_finished(qk_tap_dance_state_t *state, void *user_data) {
+//     dance_state[0].step = dance_step(state);
+//     switch (dance_state[0].step) {
+//         case SINGLE_TAP: register_code(TG_RED); break;
+//         case SINGLE_HOLD: register_code(MO_RED); break;
+//         case DOUBLE_TAP: register_code(MO_RED); break;
+//         case DOUBLE_HOLD: register_code(MO_RED); break;
+//         case DOUBLE_SINGLE_TAP: register_code(MO_RED); unregister_code(MO_RED); register_code(MO_RED);
+//     }
+// }
+
+// void dance_0_reset(qk_tap_dance_state_t *state, void *user_data) {
+//     wait_ms(10);
+//     switch (dance_state[0].step) {
+//         case SINGLE_TAP: unregister_code(TG_RED); break;
+//         case SINGLE_HOLD: unregister_code(MO_RED); break;
+//         case DOUBLE_TAP: unregister_code(MO_RED); break;
+//         case DOUBLE_HOLD: unregister_code(MO_RED); break;
+//         case DOUBLE_SINGLE_TAP: unregister_code(MO_RED); break;
+//     }
+//     dance_state[0].step = 0;
+// }
+
+// void on_dance_1(qk_tap_dance_state_t *state, void *user_data);
+// void dance_1_finished(qk_tap_dance_state_t *state, void *user_data);
+// void dance_1_reset(qk_tap_dance_state_t *state, void *user_data);
+
+// void on_dance_1(qk_tap_dance_state_t *state, void *user_data) {
+//     if(state->count == 3) {
+//         tap_code16(MO_GREN);
+//         tap_code16(MO_GREN);
+//         tap_code16(MO_GREN);
+//     }
+//     if(state->count > 3) {
+//         tap_code16(MO_GREN);
+//     }
+// }
+
+// void dance_1_finished(qk_tap_dance_state_t *state, void *user_data) {
+//     dance_state[1].step = dance_step(state);
+//     switch (dance_state[1].step) {
+//         case SINGLE_TAP: register_code16(TG_GREN); break;
+//         case SINGLE_HOLD: register_code16(MO_GREN); break;
+//         case DOUBLE_TAP: register_code16(TG_RED); break;
+//         case DOUBLE_HOLD: register_code16(MO_GREN); break;
+//         case DOUBLE_SINGLE_TAP: tap_code16(MO_GREN); register_code16(MO_GREN);
+//     }
+// }
+
+// void dance_1_reset(qk_tap_dance_state_t *state, void *user_data) {
+//     wait_ms(10);
+//     switch (dance_state[1].step) {
+//         case SINGLE_TAP: unregister_code16(TG_GREN); break;
+//         case SINGLE_HOLD: unregister_code16(MO_GREN); break;
+//         case DOUBLE_TAP: unregister_code16(TG_RED); break;
+//         case DOUBLE_HOLD: unregister_code16(MO_GREN); break;
+//         case DOUBLE_SINGLE_TAP: unregister_code16(MO_GREN); break;
+//     }
+//     dance_state[1].step = 0;
+// }
+
+// void on_dance_2(qk_tap_dance_state_t *state, void *user_data);
+// void dance_2_finished(qk_tap_dance_state_t *state, void *user_data);
+// void dance_2_reset(qk_tap_dance_state_t *state, void *user_data);
+
+// void on_dance_2(qk_tap_dance_state_t *state, void *user_data) {
+//     if(state->count == 3) {
+//         tap_code16(MO_VIOL);
+//         tap_code16(MO_VIOL);
+//         tap_code16(MO_VIOL);
+//     }
+//     if(state->count > 3) {
+//         tap_code16(MO_VIOL);
+//     }
+// }
+
+// void dance_2_finished(qk_tap_dance_state_t *state, void *user_data) {
+//     dance_state[2].step = dance_step(state);
+//     switch (dance_state[2].step) {
+//         case SINGLE_TAP: register_code16(TG_VIOL); break;
+//         case SINGLE_HOLD: register_code16(MO_VIOL); break;
+//         case DOUBLE_TAP: register_code16(TG_VIOL); break;
+//         case DOUBLE_HOLD: register_code16(MO_VIOL); break;
+//         case DOUBLE_SINGLE_TAP: tap_code16(MO_VIOL); register_code16(MO_VIOL);
+//     }
+// }
+
+// void dance_2_reset(qk_tap_dance_state_t *state, void *user_data) {
+//     wait_ms(10);
+//     switch (dance_state[2].step) {
+//         case SINGLE_TAP: unregister_code16(TG_VIOL); break;
+//         case SINGLE_HOLD: unregister_code16(MO_VIOL); break;
+//         case DOUBLE_TAP: unregister_code16(MO_VIOL); break;
+//         case DOUBLE_HOLD: unregister_code16(MO_VIOL); break;
+//         case DOUBLE_SINGLE_TAP: unregister_code16(MO_VIOL); break;
+//     }
+//     dance_state[2].step = 0;
+// }
+
+// qk_tap_dance_action_t tap_dance_actions[] = {
+//         [DANCE_0] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_0, dance_0_finished, dance_0_reset),
+//         [DANCE_1] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_1, dance_1_finished, dance_1_reset),
+//         [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_2, dance_2_finished, dance_2_reset),
+// };
