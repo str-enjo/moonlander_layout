@@ -556,7 +556,7 @@ const ComboWithKeycode combos[] PROGMEM = {
   CHORD(KC_DEL,  /* <- */ CMB_BSP, CMB_DOT),
   CHORD(KC_ENT,  /* <- */ CMB_SPC, CMB_BSP),
   CHORD(KC_ESC,  /* <- */ CMB_SPC, CMB_DOT, CMB_BSP),
-  CHORD(TG_GAME, /* <- */ CMB_LAN, CMB_DOT, CMB_BSP),
+  CHORD(TG_GAME, /* <- */ CMB_LAN, CMB_BSP),
 
   // -------------------------------------------------------------------------
   // Shifted index keys
